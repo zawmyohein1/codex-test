@@ -1,0 +1,40 @@
+@model WebApp.Models.Feedback
+@{
+    ViewData["Title"] = "Feedback";
+}
+<h1>Feedback</h1>
+
+<form asp-action="Index" method="post">
+    @Html.AntiForgeryToken()
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Rating" class="form-label"></label>
+        <select asp-for="Rating" class="form-select">
+            <option value="">Select</option>
+            @for (int i = 1; i <= 5; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+        <span asp-validation-for="Rating" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Comments" class="form-label"></label>
+        <textarea asp-for="Comments" class="form-control"></textarea>
+        <span asp-validation-for="Comments" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
